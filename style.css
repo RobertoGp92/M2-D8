@@ -1,0 +1,44 @@
+
+/* Assegna una larghezza massima al tag body e centralo nella pagina */
+body {
+    width: 900px;
+    margin: auto;
+}
+
+/* Centra ogni tag h1 */
+h1 {
+    text-align: center;
+}
+
+/* Cambia il colore di ogni link nella pagina */
+#img2{
+    color: purple;
+}
+
+/* Crea una classe e assegnale un bordo */
+/* Fai in modo che la i bordi della tabella che hai creato siano arrotondati */
+.tabella {
+    border: 1px solid;
+    border-radius: 15px;
+}
+
+/* Aggiungi un margine ad ogni paragrafo */
+p {
+    margin: 10px;
+}
+
+/* Crea una classe che una volta assegnata cambi la dimensione e il peso del font */
+.peso {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Crea una classe per nascondere un elemento */
+.nascondi {
+    display: none;
+}
+
+/* Aggiungi un bordo verde a ogni <td> */
+td {
+    border: 1px solid;
+    border-color: green;
+}

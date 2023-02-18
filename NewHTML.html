@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuova Pagina</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap');
+    </style>
+
+<body>
+
+    <h1>Diamo un titolo a questa pagina</h1>
+
+    <ol>
+        <li>Cane</li>
+        <li>Gatto</li>
+        <li>Serpente</li>
+    </ol>
+
+    <table class="tabella">
+        <tr>
+            <td>Dato</td>
+            <td><a class="img2" href="#"><img class="img1" src="../../../esercizi epicode M1/D8/assets/1_h8Qki_p5jFe28RmsaESIOw.jpeg"
+                        alt="Immagine1"></a></td>
+            <td colspan="2">Dato</td>
+            <td>Dato</td>
+            <td>Dato</td>
+        </tr>
+        <tr>
+            <td>Dato</td>
+            <td><a class="img2" href="#"><img class="img1" src="../../../esercizi epicode M1/D8/assets/1_7g4tCSnZoRsFYf6GwKJWhw.jpeg"
+                        alt="Immagine2"></a></td>
+            <td>Dato</td>
+            <td>Dato</td>
+        </tr>
+        <tr>
+            <td>Dato</td>
+            <td><a class="img2" href="#"><img class="img1" src="../../../esercizi epicode M1/D8/assets/1_h8Qki_p5jFe28RmsaESIOw.jpeg"
+                        alt="Immagine3"></a></td>
+            <td>Dato</td>
+            <td>Dato</td>
+        </tr>
+        <tr>
+            <td>Dato</td>
+            <td><a class="img2" href="#"><img class="img1" src="../../../esercizi epicode M1/D8/assets/1_-WaiswOK-LCe_yv-eoGiDQ.jpeg"
+                        alt="Immagine4"></a></td>
+            <td>Dato</td>
+            <td>Dato</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <div id="container">
+        <p>Questo è un paragrafo inserito per l'esercizio</p>
+
+
+        <ul>
+            <li>Topo</li>
+            <li>Ragno</li>
+            <li>Cavallo</li>
+        </ul>
+
+    </div>
+
+    <button onclick="nascosto()">Premi per nascondere</button>
+    <button id="mostraNascondi" onclick="tabella()">Premi</button>
+
+    <footer>
+        <p>Autore: Roberto</p>
+        <a class="img2" href="#">email@esempio.com</a>
+    </footer>
+
+    <script>
+
+        //seleziono l'id container
+        document.getElementById("container");
+
+        //seleziono tutti i td della pagina
+        document.querySelectorAll("td");
+
+        
+        let content = function () {
+            const contenuti = document.querySelectorAll("td");
+            for (let contenuto of contenuti) {
+                contenuto.textContent;
+            }
+        }
+        content()
+
+        //dichiaro una costante, apro una funzione dove seleziono il titolo e lo cambio tramite innerText
+        const titolo = function (newTitle) {
+            const title = document.querySelector("h1");
+            title.innerText = newTitle;
+        }
+        titolo("abbiamo cambiato il titolo");
+
+
+        const nuovaRiga = function () {
+            document.getElementById("table");
+            var r = table.insertRow("newrow")
+
+        }
+        nuovaRiga();
+
+
+
+        let tclasse = function () {
+            let trTags = document.querySelectorAll("tr");
+            for (let i = 0; i <= trTags; i++) {
+
+            }
+
+        }
+        tclasse()
+
+
+        //ho creato un nuovo elemento della lista che però non inserisce dopo l'appendChild
+        function lista() {
+            document.getElementsByTagName("ul")
+            const li = document.createElement("li")
+            li.innerText = "new test"
+            document.getElementById("lista").appendChild(li);
+        }
+
+
+        //nella funzione inserisco una costante che assogio ad una classa, aggiungo un ciclo for cosi ogni elemento che contiene la classe img1 viene nascosto quando premo il bottone
+        function nascosto() {
+            const bottone = document.getElementsByClassName("img1");
+            for (let i of bottone) {
+                i.style.display = "none"
+            }
+        }
+
+
+        //ho dichiarato una variabile, gli ho associato il tag "a" ho inserito un ciclo in modo tale da prenderli tutti, ho aggiunto un evento mouseover dove gli ho inserito la funzione che dovrebbe mostrare l'alert al passaggio del mouse(avrò sbagliato la funzione?)
+        let evento = document.querySelectorAll("img2 a");
+        for (eventi of evento) {
+            eventi.addEventListener("mouseover", proprietà);
+        }
+
+        function proprietà(){
+            alert(href);
+        }
+
+    </script>
+</body>
+
+</html>

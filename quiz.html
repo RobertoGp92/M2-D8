@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<!--
+        QUIZ GAME!
+
+        REGOLE:
+        / Il giocatore deve indovinare il maggior numero di risposte possibile
+        / Ogni risposta corretta vale 1 punto
+        / Le domande possono essere a risposta multipla oppure vero/falso
+        / Alla fine della partita il giocatore deve sapere il proprio risultato
+
+        DOMANDE:
+        / Puoi prenderle da questo URL (http://bit.ly/strive_QUIZZ) oppure puoi creare le tue
+        / Possono essere a risposta multipla oppure vero/falso
+
+        SUGGERIMENTI PER L'ESERCIZIO:
+        / Memorizza il punteggio totale dell'utente in una variabile
+        / Memorizza in una variabile questionNumber a quale domanda il giocatore sta rispondendo
+        / Quando questionNumber diventa maggiore del numero totale delle domande, la partita è finita e devi mostrare il punteggio
+        / Memorizza le domande in una variabile (oppure recuperale direttamente dall'URL usando AJAX, se già sai come farlo!)
+        / Comincia con i requisiti base, se ti avanza tempo prosegui con gli EXTRA
+        / Verifica tramite la console che il flow dell'applicazione sia corretto, in modo che non ci siano problemi nell'esecuzione
+
+        EXTRA:
+        / Mostra immediatamente al giocatore una volta selezionata la risposta se ha fatto punto oppure no
+        / Presenta le domande al giocatore una alla volta, invece di mostrargliele tutte insieme
+        / Permetti al giocatore di selezionare il livello di difficoltà e il numero delle risposte (puoi recuperarle da qui https://opentdb.com/api.php?amount=10&category=18&difficulty=easy modificando nell'URL i parametri "amount")
+          e "difficulty"
+    -->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+  <!--<link rel="stylesheet" href="stylequiz.css"> -->
+</head>
+
+<body cz-shortcut-listen="true">
+
+
+  <header>
+    <h1>Ti do il benvenuto in questo quiz!</h1>
+  </header>
+
+  <main id="principale">
+
+  </main>
+
+  <button id="invio" onclick="calcolaRisultato()">Invio</button>
+
+  <button id="reset">Reset</button>
+
+
+  <footer>
+    <p>Ideato da: Roberto Ciccarone</p>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question: 'What does CPU stand for?',
+        correct_answer: 'Central Processing Unit',
+        incorrect_answers: [
+          'Central Process Unit',
+          'Computer Personal Unit',
+          'Central Processor Unit',
+        ],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question:
+          'In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?',
+        correct_answer: 'Final',
+        incorrect_answers: ['Static', 'Private', 'Public'],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'boolean',
+        difficulty: 'easy',
+        question: 'The logo for Snapchat is a Bell.',
+        correct_answer: 'False',
+        incorrect_answers: ['True'],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'boolean',
+        difficulty: 'easy',
+        question:
+          'Pointers were not used in the original C programming language; they were added later on in C++.',
+        correct_answer: 'False',
+        incorrect_answers: ['True'],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question:
+          'What is the most preferred image format used for logos in the Wikimedia database?',
+        correct_answer: '.svg',
+        incorrect_answers: ['.png', '.jpeg', '.gif'],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question: 'In web design, what does CSS stand for?',
+        correct_answer: 'Cascading Style Sheet',
+        incorrect_answers: [
+          'Counter Strike: Source',
+          'Corrective Style Sheet',
+          'Computer Style Sheet',
+        ],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question:
+          'What is the code name for the mobile operating system Android 7.0?',
+        correct_answer: 'Nougat',
+        incorrect_answers: [
+          'Ice Cream Sandwich',
+          'Jelly Bean',
+          'Marshmallow',
+        ],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question: 'On Twitter, what is the character limit for a Tweet?',
+        correct_answer: '140',
+        incorrect_answers: ['120', '160', '100'],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'boolean',
+        difficulty: 'easy',
+        question: 'Linux was first created as an alternative to Windows XP.',
+        correct_answer: 'False',
+        incorrect_answers: ['True'],
+      },
+      {
+        category: 'Science: Computers',
+        type: 'multiple',
+        difficulty: 'easy',
+        question:
+          'Which programming language shares its name with an island in Indonesia?',
+        correct_answer: 'Java',
+        incorrect_answers: ['Python', 'C', 'Jakarta'],
+      },
+    ]
+
+    window.onload = function () {
+      // ANCORA SUGGERIMENTI :)
+      // Se stai mostrando al giocatore tutte le domande in un colpo solo:
+      // Per ogni domanda, crea un elemento contenitore; poi crea un radio button (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio)
+      // con, come opzioni, sia la risposta corretta che quella/e non corretta/e. (puoi utilizzare google per capire come recuperare il valore di un
+      // radio button per il punteggio finale)
+      //
+      // Se stai mostrando al giocatore le domande una alla volta:
+      // All'inizio mostra la prima domanda con il testo i i radio buttons. Quando il giocatore seleziona una risposta, prendi la domanda
+      // successiva dall'elenco e rimpiazza la domanda vecchia, salvando la risposta selezionata in una variabile.
+
+      //const lunghezza = questions.length; - dichiaro una costante uguale alla lunghezza dell'array. se devo utilizzare tante volte la lunghezza dell'array allora mi conviene dichiarare una costante uguale alla lunghezza dell'array
+
+      let mainQuestions = document.getElementById("principale"); //dichiaro una variabile che rendo uguale al main del documento HTML 
+
+      for (let i = 0; i < questions.length; i++) { //vado ad iterare tutto l'array
+        const question = questions[i]; //l'array iterato lo rendo uguale ad una variabile. Metto const perchè è una variabile che vado solo a leggere
+        //console.log(question); //vediamo l'array iterato
+
+        let newDiv = document.createElement("div"); //in questo momento viene creato ma non aggiunto subito al documento
+        newDiv.classList.add("contenitore"); //diamo una classe al div. è più facile da gestire classList 
+
+        let newLabel = document.createElement("label"); //creiamo un secondo elemento label
+        newLabel.classList.add("classeLabel"); //diamo una classe al label. è più facile da gestire classList
+
+        newLabel.innerText = question.question; //inserisco la question dell'array in newLaber con innerText
+
+        let newArray = []; //dichiariamo un array nuovo nel quale pushare le risposte corrette
+        newArray.push(question.correct_answer); //pusho le risposte corrette in questo array
+
+        for (let answer of question.incorrect_answers) { //ciclo l'array in modo da prendere tutte le risposte sbagliate
+          newArray.push(answer); //andiamo a pushare nello stesso array di prima le stesse risposte sbagliate
+        }
+        //console.log(newArray) //vediamo le risposte se sono in array
+
+        newDiv.appendChild(newLabel); //non vanno le virgolette perchè inseriamo le variabili. Metto nel div il newLabel
+        let invio = document.createElement("br");
+        newDiv.append(invio);
+
+        for (let j = 0; j < newArray.length; j++) { //conta e itera le risposte
+          let inputAnswerRadio = document.createElement("input"); //creo l'elemento input che sarà un radio button -> dobbiamo andare a definire l'id, type e il name
+          inputAnswerRadio.name = "question" + i; //assegno il nome al radio button
+          inputAnswerRadio.type = "radio"; //assegno il tipo all'input
+          inputAnswerRadio.id = "question" + i + j; //id univoco per ogni domanda e risposta
+          inputAnswerRadio.value = newArray[j];  //assegnamo il valore
+          inputAnswerRadio.required = true; //indichiamo che la risposta è richiesta 
+
+
+          let answerLabel = document.createElement("label");
+          answerLabel.innerText = newArray[j]; //inseriamo le risposte tramite innertext
+          answerLabel.setAttribute('for', inputAnswerRadio.id);
+          let invioElemento = document.createElement("br");
+          newDiv.appendChild(invioElemento);
+
+          newDiv.appendChild(inputAnswerRadio, answerLabel); //metodo per appendere gli elementi creati prima
+        }
+
+        let hrElemento = document.createElement("hr");
+        newDiv.appendChild(hrElemento);
+        mainQuestions.appendChild(newDiv) //non vanno le virgolette perche inseriamo le variabili. Metto nel MAIN il newDiv
+
+
+      }
+
+
+    }
+
+    function calcolaRisultato() {
+      let risposte = []
+      let i = 0;
+      while (questionRadio = document.getElementsByName('question' + i)) {
+        //recupera tutti gli elementi con lo stesso nameM restituisce un array di elementi
+        if (questionRadio.length === 0) {
+          break;
+        }
+        for (let k = 0; k < questionRadio.length; k++) {
+          if (questionRadio[k].checked) {
+              risposte.push(questionRadio[k].value); //inserirsco la risposta dell'utente nell'array
+          }
+        }
+        i++;
+      }
+    }
+
+
+      // Come calcolare il punteggio? Puoi farlo in 2 modi:
+      // Se stai mostrando al giocatore tutte le domande in un colpo solo, seleziona tutti i radio buttons e controlla se la risposta selezionata
+      // è quella corretta.
+      // Se stai mostrando al giocatore le domande una alla volta, basta aggiungere o no 1 punto ogni volta che viene selezionata una risposta.
+  </script>
+</body>
+
+</html>
